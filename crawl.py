@@ -39,7 +39,10 @@ def scan_links(webpage, maximum, filename):
     with open(filename, "w") as file_:
         for link in links_indexed:
             file_.write(link + "\n")
+        file_.write("\n")
+        for link in links_visited:
+            file_.write(link + "\n")
 
 
 if __name__ == "__main__":
-    scan_links("https://en.wikipedia.org", 2000000, "dump.txt")
+    scan_links("https://en.wikipedia.org", 50000, "dump.txt")
