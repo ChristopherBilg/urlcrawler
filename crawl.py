@@ -5,7 +5,7 @@ import os
 import search as Search
 
 
-def scan_links(webpage, maximum, filename):
+def scan_links(webpage, maximum, filename, modulus):
     """
     Main function to itterate. (needs a rewrite)
     """
@@ -24,7 +24,7 @@ def scan_links(webpage, maximum, filename):
                 else:
                     links_indexed.append(href)
                     counter += 1
-                    if counter % 2500 == 0:
+                    if counter % modulus == 0:
                         print(str(counter)
                               + " | " + str(len(links_indexed))
                               + " | " + str(len(links_visited)))
@@ -45,4 +45,4 @@ def scan_links(webpage, maximum, filename):
 
 
 if __name__ == "__main__":
-    scan_links("https://en.wikipedia.org", 50000, "dump.txt")
+    scan_links("https://en.wikipedia.org", 10000, "dump.txt", 1000)
