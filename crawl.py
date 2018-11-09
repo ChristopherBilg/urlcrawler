@@ -5,12 +5,15 @@ import os
 import search as Search
 
 
+links_indexed = []
+links_visited = []
+
+
 def scan_links(webpage, maximum, filename, modulus):
     """
     Main function to itterate. (needs a rewrite)
     """
-    links_indexed = [webpage]
-    links_visited = []
+    links_indexed.append(webpage)
     counter = 1
 
     while links_indexed:
@@ -45,4 +48,14 @@ def scan_links(webpage, maximum, filename, modulus):
 
 
 if __name__ == "__main__":
-    scan_links("https://en.wikipedia.org", 10000, "dump.txt", 1000)
+    try:
+        scan_links("https://en.wikipedia.org", 1000000, "dump.txt", 1000)
+    except KeyboardInterrupt:
+        if os.path.exists("dump.txt"):
+            os.remove("dump.txt")
+        with open("dump.txt", "w") as file_:
+            for link in links_indexed:
+                file_.write(link + "\n")
+            file_.write("\n")
+            for link in links_visited:
+                file_.write(link + "\n")

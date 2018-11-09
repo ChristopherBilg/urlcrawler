@@ -10,4 +10,9 @@ pylint search.py --score=no
 pycodestyle search.py
 flake8 search.py
 
+echo "Starting lint on test.py"
+pylint test.py --score=no
+pycodestyle test.py
+flake8 test.py
+
 echo "Finished linting all files"

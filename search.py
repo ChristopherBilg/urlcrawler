@@ -20,7 +20,12 @@ class Search:
         """
         Get all href links on self.webpage
         """
-        request = Requests.get(self.webpage)
+        try:
+            request = Requests.get(self.webpage)
+        except Requests.exceptions.RequestException as e:
+            print(e)
+            return []
+
         data = request.text
         soup = BeautifulSoup(data, "html.parser")
 
