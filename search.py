@@ -22,8 +22,8 @@ class Search:
         """
         try:
             request = Requests.get(self.webpage)
-        except Requests.exceptions.RequestException as e:
-            print(e)
+        except Requests.exceptions.RequestException as _e:
+            print(_e)
             return []
 
         data = request.text

@@ -5,32 +5,32 @@ import os
 import search as Search
 
 
-links_indexed = []
-links_visited = []
+LINKS_INDEXED = []
+LINKS_VISITED = []
 
 
 def scan_links(webpage, maximum, filename, modulus):
     """
     Main function to itterate. (needs a rewrite)
     """
-    links_indexed.append(webpage)
+    LINKS_INDEXED.append(webpage)
     counter = 1
 
-    while links_indexed:
-        for link in links_indexed:
-            links_indexed.remove(link)
-            links_visited.append(link)
+    while LINKS_INDEXED:
+        for link in LINKS_INDEXED:
+            LINKS_INDEXED.remove(link)
+            LINKS_VISITED.append(link)
 
             for href in Search.Search(link).get_links():
-                if href in links_indexed or href in links_visited:
+                if href in LINKS_INDEXED or href in LINKS_VISITED:
                     pass
                 else:
-                    links_indexed.append(href)
+                    LINKS_INDEXED.append(href)
                     counter += 1
                     if counter % modulus == 0:
                         print(str(counter)
-                              + " | " + str(len(links_indexed))
-                              + " | " + str(len(links_visited)))
+                              + " | " + str(len(LINKS_INDEXED))
+                              + " | " + str(len(LINKS_VISITED)))
 
             if counter >= maximum and maximum != -1:
                 break
@@ -39,12 +39,9 @@ def scan_links(webpage, maximum, filename, modulus):
 
     if os.path.exists(filename):
         os.remove(filename)
-    with open(filename, "w") as file_:
-        for link in links_indexed:
-            file_.write(link + "\n")
-        file_.write("\n")
-        for link in links_visited:
-            file_.write(link + "\n")
+    with open(filename, "w+") as _file:
+        for link in LINKS_INDEXED + LINKS_VISITED:
+            _file.write(link + "\n")
 
 
 if __name__ == "__main__":
@@ -53,9 +50,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         if os.path.exists("dump.txt"):
             os.remove("dump.txt")
-        with open("dump.txt", "w") as file_:
-            for link in links_indexed:
-                file_.write(link + "\n")
-            file_.write("\n")
-            for link in links_visited:
-                file_.write(link + "\n")
+        with open("dump.txt", "w+") as dump_file:
+            for dump_link in LINKS_INDEXED + LINKS_VISITED:
+                dump_file.write(dump_link + "\n")

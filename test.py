@@ -1,16 +1,22 @@
 """
 Testing module for urlcrawler.
 """
-counter = 0
+import os
 
-with open("dump.txt") as f:
-    seen = set()
+
+if not os.path.exists("dump.txt"):
+    exit()
+
+COUNTER = 0
+
+with open("dump.txt", "w+") as f:
+    SEEN = set()
     for line in f:
         line_lower = line.lower()
-        if line_lower in seen:
+        if line_lower in SEEN:
             print(line.strip("\n"))
-            counter += 1
+            COUNTER += 1
         else:
-            seen.add(line_lower)
+            SEEN.add(line_lower)
 
-print("Duplicates found = " + str(counter))
+print("Duplicates found = " + str(COUNTER))
