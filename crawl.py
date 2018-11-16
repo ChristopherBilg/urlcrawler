@@ -46,7 +46,8 @@ def scan_links(webpage, maximum, filename, modulus):
 
 if __name__ == "__main__":
     try:
-        scan_links("https://en.wikipedia.org", 1000000, "dump.txt", 1000)
+        # scan_links("https://en.wikipedia.org", -1, "dump.txt", 1000)
+        scan_links("https://www.osha.gov", -1, "dump.txt", 500)
     except KeyboardInterrupt:
         if os.path.exists("dump.txt"):
             os.remove("dump.txt")

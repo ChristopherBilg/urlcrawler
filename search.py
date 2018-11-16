@@ -33,7 +33,7 @@ class Search:
 
         for link in soup.find_all("a"):
             if link.has_attr("href"):
-                href = str(link.get("href"))
+                href = str(link.get("href")).lower()
 
                 if href == "/":
                     pass
@@ -44,5 +44,23 @@ class Search:
                     all_links_found.append(self.webpage + href)
                 elif href.startswith("http"):
                     all_links_found.append(href)
+                elif href.startswith("tel:"):
+                    pass
+                elif href.startswith("javascript:"):
+                    pass
+                elif href.startswith("mailto:"):
+                    pass
+                elif href.startswith("#"):
+                    pass
+                elif href.startswith("?"):
+                    pass
+                elif href.startswith(" ") or href == "":
+                    pass
+                elif href.endswith(".html") or href.endswith(".htm"):
+                    all_links_found.append(self.webpage + "/" + href)
+                elif "." not in href:
+                    all_links_found.append(self.webpage + "/" + href)
+                else:
+                    print(href)
 
         return all_links_found

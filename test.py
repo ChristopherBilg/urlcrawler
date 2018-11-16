@@ -9,7 +9,7 @@ if not os.path.exists("dump.txt"):
 
 COUNTER = 0
 
-with open("dump.txt", "w+") as f:
+with open("dump.txt", "r") as f:
     SEEN = set()
     for line in f:
         line_lower = line.lower()
